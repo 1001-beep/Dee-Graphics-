@@ -8,6 +8,7 @@ import SocialSidebar from "@/components/SocialSidebar";
 export const metadata: Metadata = {
   title: "Dee Graphics | Premium Visual Experiences",
   description: "Creative Graphic Design & AI-Powered Visual Solutions.",
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
