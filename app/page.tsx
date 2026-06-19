@@ -1,0 +1,186 @@
+'use client';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { C, glass } from "@/lib/theme";
+import GlassCard from "@/components/GlassCard";
+import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import GoldDivider from "@/components/GoldDivider";
+
+const Icon = ({ d, size = 22 }: { d: string; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <path d={d} />
+  </svg>
+);
+
+const ICONS = {
+  layers: "M2 20h20M2 16l10-4 10 4M2 12l10-4 10 4",
+  cpu: "M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 0 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18",
+  sparkles: "M12 3v1m0 16v1M4.22 4.22l.7.7m14.16 14.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7z",
+};
+
+const FLOATING_CARDS = [
+  { src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=500", top: "8%", left: "4%", size: 150, rotate: -8, delay: 0 },
+  { src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=500", top: "12%", right: "5%", size: 170, rotate: 6, delay: 1.2 },
+  { src: "https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=500", bottom: "10%", left: "8%", size: 140, rotate: 5, delay: 2 },
+  { src: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=500", bottom: "14%", right: "6%", size: 160, rotate: -6, delay: 0.6 },
+];
+
+function FloatingCard({ src, top, left, right, bottom, size, rotate, delay }: any) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top, left, right, bottom,
+        width: size,
+        height: size * 1.3,
+        borderRadius: 4,
+        overflow: "hidden",
+        border: "1px solid rgba(212,175,55,0.18)",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.55)",
+        transform: `rotate(${rotate}deg)`,
+        animation: `float-${Math.abs(rotate)} 7s ease-in-out infinite`,
+        animationDelay: `${delay}s`,
+        opacity: 0.85,
+        display: "none",
+      }}
+      className="hero-float-card"
+    >
+      <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,7,10,0.1), rgba(7,7,10,0.45))" }} />
+    </div>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div className="title-gradient-text" style={{ fontSize: 36, fontWeight: 300, letterSpacing: "-0.02em" }}>
+        {value}
+      </div>
+      <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gray500, marginTop: 4 }}>
+        {label}
+      </div>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 80);
+    return () => clearTimeout(t);
+  }, []);
+
+  const features = [
+    { icon: ICONS.layers, title: "Luxury Corporate Branding", desc: "Complete design ecosystems — logomarks, typography systems, and comprehensive brand manuals built to last decades.", tag: null },
+    { icon: ICONS.cpu, title: "AI Artwork Engineering", desc: "Hyper-realistic renders and synthetic concepts processed into studio-grade marketing assets.", tag: "Next-Gen" },
+    { icon: ICONS.sparkles, title: "Social Campaign Design", desc: "High-converting layouts optimised for platform engagement, built to stop the scroll and convert.", tag: null },
+  ];
+
+  return (
+    <main style={{ paddingBottom: 96 }}>
+      {/* Hero */}
+      <section style={{ minHeight: "88vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 24px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+
+        {/* Floating design mockup cards */}
+        {FLOATING_CARDS.map((card, i) => (
+          <FloatingCard key={i} {...card} />
+        ))}
+
+        <div style={{ maxWidth: 800, position: "relative", zIndex: 2, opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(28px)", transition: "opacity .9s, transform .9s" }}>
+          <span style={{ fontSize: 10, letterSpacing: "0.6em", textTransform: "uppercase", color: C.gold, fontWeight: 600, display: "block", marginBottom: 24 }}>
+            The Horizon of Digital Presentation
+          </span>
+          <h1 style={{ fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 300, letterSpacing: "-0.02em", color: C.white, lineHeight: 1.15, marginBottom: 28 }}>
+            Creative Graphic Design &amp;{" "}
+            <span className="title-gradient-text" style={{ fontWeight: 500 }}>AI-Powered Realities</span>
+          </h1>
+          <p style={{ color: C.gray400, fontSize: 16, fontWeight: 300, maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.8 }}>
+            Transforming corporate briefs into breathtaking visual identities. Bleeding-edge UI frameworks fused with luxurious design craft.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
+            <Link href="/portal/request" style={{ background: `linear-gradient(135deg, ${C.gold}, #B8860B)`, color: C.bg, fontWeight: 700, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", padding: "16px 36px", border: "none", cursor: "pointer", borderRadius: 2, boxShadow: `0 8px 24px rgba(212,175,55,0.2)`, textDecoration: "none" }}>
+              Book Creative Request
+            </Link>
+            <Link href="/services" style={{ border: `1px solid ${C.border}`, background: "rgba(255,255,255,0.04)", backdropFilter: "blur(12px)", color: C.white, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", padding: "16px 36px", cursor: "pointer", borderRadius: 2, textDecoration: "none" }}>
+              Browse Capabilities
+            </Link>
+          </div>
+        </div>
+
+        <style>{`
+          @media (min-width: 900px) {
+            .hero-float-card { display: block !important; }
+          }
+          @keyframes float-8 {
+            0%, 100% { transform: rotate(-8deg) translateY(0px); }
+            50% { transform: rotate(-8deg) translateY(-18px); }
+          }
+          @keyframes float-6 {
+            0%, 100% { transform: rotate(6deg) translateY(0px); }
+            50% { transform: rotate(6deg) translateY(-22px); }
+          }
+          @keyframes float-5 {
+            0%, 100% { transform: rotate(5deg) translateY(0px); }
+            50% { transform: rotate(5deg) translateY(-15px); }
+          }
+        `}</style>
+      </section>
+
+      {/* Stats */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "48px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 24, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
+        {[["250+", "Projects Delivered"], ["98%", "Client Satisfaction"], ["7", "Design Disciplines"], ["48h", "Avg. Turnaround"]].map(([v, l]) => (
+          <Stat key={l} value={v} label={l} />
+        ))}
+      </section>
+
+      {/* Before/After */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "80px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+        <div>
+          <span style={{ fontSize: 9, letterSpacing: "0.4em", textTransform: "uppercase", color: C.gold, fontWeight: 700, display: "block", marginBottom: 12 }}>
+            AI Engine Processing
+          </span>
+          <h2 style={{ fontSize: "clamp(28px, 3.5vw, 46px)", fontWeight: 300, color: C.white, letterSpacing: "-0.02em", marginBottom: 20, lineHeight: 1.2 }}>
+            Fusing Organic Synthesis with Synthetic Imagery
+          </h2>
+          <p style={{ color: C.gray400, fontSize: 14, lineHeight: 1.8, fontWeight: 300, marginBottom: 28 }}>
+            Drag the slider to witness how our post-processing frameworks elevate raw AI renders into polished, studio-grade marketing assets.
+          </p>
+          <Link href="/portal/request" style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, borderBottom: `1px solid rgba(212,175,55,0.4)`, paddingBottom: 4, textDecoration: "none" }}>
+            Order Similar Refinement →
+          </Link>
+        </div>
+        <BeforeAfterSlider />
+      </section>
+
+      {/* Services Cards */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "20px 24px 80px" }}>
+        <div style={{ textAlign: "center", marginBottom: 56 }}>
+          <h2 style={{ fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 300, letterSpacing: "0.06em", color: C.white }}>Engineering Architecture</h2>
+          <GoldDivider />
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+          {features.map((f) => (
+            <GlassCard key={f.title} title={f.title} description={f.desc} icon={<Icon d={f.icon} />} tag={f.tag} />
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <section style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div style={{ ...glass, padding: "60px 48px", borderRadius: 2, textAlign: "center", background: `linear-gradient(135deg, ${C.surfaceAlt}, ${C.surface})`, border: `1px solid rgba(212,175,55,0.15)`, boxShadow: `inset 0 0 80px ${C.goldGlow}, 0 8px 32px rgba(0,0,0,0.5)` }}>
+          <span style={{ fontSize: 9, letterSpacing: "0.5em", color: C.gold, textTransform: "uppercase", fontWeight: 700, display: "block", marginBottom: 16 }}>
+            Start Your Project
+          </span>
+          <h2 style={{ fontSize: "clamp(26px, 3vw, 42px)", fontWeight: 300, color: C.white, marginBottom: 12, letterSpacing: "-0.01em" }}>
+            Ready to elevate your visual identity?
+          </h2>
+          <p style={{ color: C.gray400, fontSize: 14, marginBottom: 36, fontWeight: 300 }}>Let&apos;s craft something extraordinary together.</p>
+          <Link href="/portal/request" style={{ background: `linear-gradient(135deg, ${C.gold}, #B8860B)`, color: C.bg, fontWeight: 700, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", padding: "16px 44px", border: "none", cursor: "pointer", borderRadius: 2, boxShadow: `0 8px 24px rgba(212,175,55,0.25)`, textDecoration: "none" }}>
+            Begin Your Brief →
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+                                 }
