@@ -27,9 +27,10 @@ export default function Footer() {
         <nav style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
           {[
             ["Home", "/"],
-            ["Services", "/services"],
-            ["Order", "/portal/request"],
-            ["Portal", "/portal"],
+["Services", "/services"],
+["Order", "/portal/request"],
+["Portal", "/portal"],
+["Login", "/login"], 
           ].map(([label, href]) => (
             <Link
               key={label}
