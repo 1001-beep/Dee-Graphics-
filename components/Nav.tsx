@@ -3,11 +3,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { C } from "@/lib/theme";
 
-const links = [
+const const links = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Order", href: "/portal/request" },
   { label: "Portal", href: "/portal" },
+  { label: "Login", href: "/login" },
 ];
 
 export default function Nav() {
