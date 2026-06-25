@@ -66,7 +66,7 @@ export default function Nav() {
         </nav>
 
         <Link
-          href="/portal"
+          href="/login"
           style={{
             border: `1px solid rgba(212,175,55,0.4)`,
             padding: "10px 20px",
