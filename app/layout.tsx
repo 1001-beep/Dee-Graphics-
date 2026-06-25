@@ -40,7 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             filter: "blur(160px)",
             pointerEvents: "none",
           }}
-        />
+        /><script dangerouslySetInnerHTML={{ __html: `
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
+`}} />
 
         <Nav />
         {children}
