@@ -122,7 +122,10 @@ export default function HomePage() {
             </Link>
             <Link href="/services" style={{ border: `1px solid rgba(255,255,255,0.2)`, background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", color: C.white, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", padding: "16px 36px", cursor: "pointer", borderRadius: 2, textDecoration: "none" }}>
               Browse Capabilities
-            </Link>
+            </Link> 
+            <Link href="/login" style={{ border: `1px solid rgba(212,175,55,0.4)`, background: "rgba(212,175,55,0.06)", backdropFilter: "blur(12px)", color: C.gold, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", padding: "16px 36px", cursor: "pointer", borderRadius: 2, textDecoration: "none" }}>
+  View My Orders
+</Link>
           </div>
         </div>
 
